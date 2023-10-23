@@ -148,7 +148,4 @@ class SirenWrapper(nn.Module):
         out = self.net(coords, mods)
         out = rearrange(out, '(h w) c -> () c h w', h = self.image_height, w = self.image_width)
 
-        if exists(img):
-            return F.mse_loss(img, out)
-
-        return out
+        return F.mse_loss(img, out) if exists(img) else out
